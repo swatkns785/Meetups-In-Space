@@ -1,1 +1,35 @@
 <h1><%= @title %></h1>
+
+<h4>Current Meetups</h4>
+
+<ul>
+  <% @meetups.each do |meetup| %>
+  <li> <%= meetup.title %></li>
+  <% end %>
+</ul>
+
+
+<table>
+  <thead>
+    <tr>
+      <td>Title</td>
+      <td>Location</td>
+      <td>Description</td>
+      <td>Created By</td>
+      <td>When</td>
+      <td>Created</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @meetups.each do |meetup| %>
+    <tr>
+      <td><%= meetup.title %></td>
+      <td><%= meetup.location %></td>
+      <td><%= meetup.description %></td>
+      <td><%= meetup.created_by %></td>
+      <td><%= "#{meetup.start_date} @ #{meetup.start_time}" %></td>
+      <td><%= meetup.created_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

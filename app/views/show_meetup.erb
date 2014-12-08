@@ -1,0 +1,7 @@
+<h1><% @meetup.title %></h1>
+
+<p>Meetup Name: <%= @meetup.title %><p>
+<p>Location: <%= @meetup.location %><p>
+<p>Description: <%= @meetup.description %><p>
+<p>Created by: <%= @user.username %><p>
+<p>When: <%= "#{@meetup.start_date} @ #{@meetup.start_time}" %><p>
