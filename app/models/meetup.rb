@@ -1,3 +1,3 @@
-class MeetUp < ActiveRecord::Base
+class Meetup < ActiveRecord::Base
   belongs_to :user
 end
