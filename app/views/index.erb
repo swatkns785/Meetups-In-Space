@@ -27,7 +27,7 @@
       <td><%= meetup.location %></td>
       <td><%= meetup.description %></td>
       <td><%= meetup.created_by %></td>
-      <td><%= "#{meetup.start_date} @ #{meetup.start_time}" %></td>
+      <td><%= "#{meetup.start_date} @ #{meetup.start_time.strftime('%l:%M %p')}" %></td>
       <td><%= meetup.created_at %></td>
     </tr>
     <% end %>

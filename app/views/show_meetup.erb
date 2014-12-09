@@ -33,8 +33,17 @@
 <h3>Comments</h3>
 <p>
   <form method="post" action="/add_comment">
+    <p>Title: <input type="text" name="title" value="Title"></p><br>
     Submit a comment: <input type="textarea" name="comment" value="Write a Comment">
     <input name="meetup" value="<%= @meetup.id %>" hidden>
     <input type="submit">
   </form>
 </p>
+
+<ul>
+<% @comments.each do |c| %>
+<p style="font-weight:bold"><%= "#{c.title}" %></p>
+<p><%= "#{c.comment}" %></p>
+<p style="font-size: 10px"><%= "#{c.created_at.strftime('%A, %B %w, %Y')}" %></p>
+<% end %>
+</ul>

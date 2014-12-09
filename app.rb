@@ -33,7 +33,6 @@ end
 
 get '/' do
   @meetups = Meetup.all
-  #binding.pry
   erb :index
 end
 
@@ -52,8 +51,7 @@ end
 get '/meetup/:id' do
   @meetup = Meetup.find_by id: params[:id]
   @user = User.find_by id: @meetup.created_by
-  @comments = Comment.order(:created_at).where meetup_id: params[:id]
-  #binding.pry
+  @comments = Comment.order('created_at DESC').where meetup_id: params[:id]
   @all_attendees = Attendee.all.where(meetup_id: @meetup.id)
   @other_attendees = Array.new
   @all_attendees.each do |attendee|
@@ -71,7 +69,7 @@ post '/add_attendee' do
 end
 
 post '/add_comment' do
-   Comment.create(meetup_id: params[:meetup], user_id: current_user.id, comment: params[:comment])
+   Comment.create(meetup_id: params[:meetup], user_id: current_user.id, comment: params[:comment], title: params[:title])
 
 
   redirect "/meetup/#{params[:meetup]}"
