@@ -52,7 +52,8 @@ end
 get '/meetup/:id' do
   @meetup = Meetup.find_by id: params[:id]
   @user = User.find_by id: @meetup.created_by
-
+  @comments = Comment.order(:created_at).where meetup_id: params[:id]
+  #binding.pry
   @all_attendees = Attendee.all.where(meetup_id: @meetup.id)
   @other_attendees = Array.new
   @all_attendees.each do |attendee|
@@ -65,7 +66,22 @@ end
 
 post '/add_attendee' do
   Attendee.create(meetup_id: params[:meetup], user_id: current_user.id)
+  flash[:notice] = "Welcome to the Meetup"
+  redirect "/meetup/#{params[:meetup]}"
+end
 
+post '/add_comment' do
+   Comment.create(meetup_id: params[:meetup], user_id: current_user.id, comment: params[:comment])
+
+
+  redirect "/meetup/#{params[:meetup]}"
+end
+
+post '/delete' do
+  meetup_id = params[:meetup]
+  attendee = Attendee.find_by(user_id: current_user, meetup_id: meetup_id)
+  attendee.destroy
+  flash[:notice] = "You left the Meetup"
   redirect "/meetup/#{params[:meetup]}"
 end
 
