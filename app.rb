@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require 'omniauth-github'
 require 'sinatra/reloader'
+require 'pry'
 
 require_relative 'config/application'
 
@@ -32,7 +33,7 @@ end
 
 get '/' do
   @meetups = Meetup.all
-
+  #binding.pry
   erb :index
 end
 
@@ -51,6 +52,8 @@ end
 get '/meetup/:id' do
   @meetup = Meetup.find_by id: params[:id]
   @user = User.find_by id: @meetup.created_by
+  @attendee = Attendee.all
+  binding.pry
   erb :show_meetup
 end
 

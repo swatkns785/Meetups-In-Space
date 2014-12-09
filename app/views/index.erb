@@ -23,7 +23,7 @@
   <tbody>
     <% @meetups.each do |meetup| %>
     <tr>
-      <td><%= meetup.title %></td>
+      <td><a href="meetup/<%= @meetups[0].id %>"><%= meetup.title %></a></td>
       <td><%= meetup.location %></td>
       <td><%= meetup.description %></td>
       <td><%= meetup.created_by %></td>

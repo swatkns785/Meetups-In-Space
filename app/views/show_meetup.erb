@@ -3,5 +3,13 @@
 <p>Meetup Name: <%= @meetup.title %><p>
 <p>Location: <%= @meetup.location %><p>
 <p>Description: <%= @meetup.description %><p>
-<p>Created by: <%= @user.username %><p>
+<p>Created by: <%= @meetup.created_by %><p>
 <p>When: <%= "#{@meetup.start_date} @ #{@meetup.start_time}" %><p>
+
+<div>&nbsp;</div>
+
+<h3>Attendees</h3>
+
+<% @attendee.each do |a| %>
+<p><%= a.user_id %></p>
+<% end %>
