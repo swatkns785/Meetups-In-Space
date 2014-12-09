@@ -1,4 +1,10 @@
 <h1><% @meetup.title %></h1>
+<p>
+  <form method="post" action="/add_attendee">
+    <input name="meetup" value ="<%= @meetup.id %>" hidden>
+    <input type="submit" value="Join Meetup">
+  </form>
+</p>
 
 <p>Meetup Name: <%= @meetup.title %><p>
 <p>Location: <%= @meetup.location %><p>
@@ -10,6 +16,6 @@
 
 <h3>Attendees</h3>
 
-<% @attendee.each do |a| %>
-<p><%= a.user_id %></p>
+<% @other_attendees.each do |a| %>
+<p><img height="100" width="100" src="<%= a.avatar_url %>" /><%= a.username %></p>
 <% end %>

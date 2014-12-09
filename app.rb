@@ -52,9 +52,21 @@ end
 get '/meetup/:id' do
   @meetup = Meetup.find_by id: params[:id]
   @user = User.find_by id: @meetup.created_by
-  @attendee = Attendee.all
-  binding.pry
+
+  @all_attendees = Attendee.all.where(meetup_id: @meetup.id)
+  @other_attendees = Array.new
+  @all_attendees.each do |attendee|
+    unless attendee.user_id == session[:user_id]
+      @other_attendees << User.find_by(id: attendee.user_id)
+    end
+  end
   erb :show_meetup
+end
+
+post '/add_attendee' do
+  Attendee.create(meetup_id: params[:meetup], user_id: current_user.id)
+
+  redirect "/meetup/#{params[:meetup]}"
 end
 
 get '/auth/github/callback' do
