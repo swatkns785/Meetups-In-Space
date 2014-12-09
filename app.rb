@@ -37,7 +37,7 @@ get '/' do
 end
 
 get '/create_meetup' do
-
+  authenticate!
   erb :create_meetup
 end
 
@@ -75,13 +75,22 @@ post '/add_comment' do
   redirect "/meetup/#{params[:meetup]}"
 end
 
-post '/delete' do
+post '/leave_meetup' do
   meetup_id = params[:meetup]
   attendee = Attendee.find_by(user_id: current_user, meetup_id: meetup_id)
   attendee.destroy
   flash[:notice] = "You left the Meetup"
   redirect "/meetup/#{params[:meetup]}"
 end
+
+post '/delete_meetup' do
+  #meetup_id = params[:meetup]
+  delete_meetup = Meetup.find_by(id: params[:meetup])
+  delete_meetup.destroy
+  flash[:notice] = "You have deleted the meetup"
+  redirect '/'
+end
+
 
 get '/auth/github/callback' do
   auth = env['omniauth.auth']
@@ -90,7 +99,8 @@ get '/auth/github/callback' do
   set_current_user(user)
   flash[:notice] = "You're now signed in as #{user.username}!"
 
-  redirect '/'
+  #redirect '/'
+  redirect back
 end
 
 get '/sign_out' do
